@@ -11,7 +11,7 @@ This document will get you started to contribute to the PomoCLI project easily, 
 	This language is simple and easy to use which made it considered as a good language for such a simple project like this.
 	Python as well have some access (limited) to the actions of the system with the `os` module and some others as well.
 - Framework\Library: [click](https://pypi.org/project/click/)
-	Click is one of the easiest frameworks for creating a cli tool, it's using a lot of cool features and preconfigured things out of the box so creating the interface of the cli tool isn't going to be hard at all.
+	Click is one of the easiest frameworks for creating a cli tool, it's using a lot of cool features and pre-configured things out of the box so creating the interface of the cli tool isn't going to be hard at all.
 	You can read more in the documentation.
 - Unit Testing: [unittest](https://docs.python.org/3/library/unittest.html)
 	unittest is built-in with Python, and yet it's not bad option at all (it might look a bit harder than PyTest, but pretty much the same thing).
@@ -66,4 +66,3 @@ All that will be tracked by PyLint, it'll notify you about it, always consider a
 You have to format your code with Black as well to make it clear.
 
 Not following our formatting and linting style might cause your pull request to be ignored as the maintainers need to work on cleaning your code, so they might get it done late. Help us to help you. ;)
-
