@@ -50,11 +50,11 @@ You can set your own template or option of time stamp you want to use. for examp
 
 | Template name     | Time of work (in minutes) | Time of rest (in minutes)|
 |:------------------|:--------------------------|:-------------------------|
-| Tripartite (Trip) | 180                       | 30                       |
-| Single            | 60                        | 15                       |
-| Half              | 30                        | 7                        |
+| Tripartite (Trip) | 180                       | 36                       |
+| Single            | 60                        | 12                       |
+| Half              | 30                        | 6                        |
 | Normal            | 25                        | 5                        |
-| Quarterly         | 15                        | 2                        |
+| Quarterly         | 15                        | 3                        |
 
 ### Usage
 
