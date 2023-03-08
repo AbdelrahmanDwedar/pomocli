@@ -22,6 +22,7 @@ py -m setup.py # windows PowerShell
 ### Modes
 
 #### Normal Mode
+
 Normal mode is the mode that will give you 25 minutes time for work, then give you a 5 minute resting time, then repeat till you stop it.
 
 You can use the normal mode by not adding any flags at all or adding the `-n` flag.
@@ -31,6 +32,7 @@ pomocli -n
 ```
 
 #### Work only mode
+
 The work only mode is basically a mode where you just have a timer that gives you 25 minutes and then stop working and quit the application.
 
 You can use the work only mode by adding the `--work-only` or `-w` flag.
@@ -85,7 +87,7 @@ pomocli -s "quar"
 
 ---
 
-## Contribute 
+## Contribute
 
 You'll need some understanding of [Python](https://www.python.org/) and virtual environments and the [click](https://pypi.org/project/click/) module to understanding the code.
 
