@@ -256,7 +256,7 @@ name-group=
 include-naming-hint=no
 
 # Naming style matching correct function names.
-function-naming-style=CamelCase
+function-naming-style=camelCase
 
 # Regular expression matching correct function names
 function-rgx=[a-z_][a-z0-9_]{2,30}$
