@@ -9,14 +9,15 @@ identify==2.5.18
 isort==5.12.0
 lazy-object-proxy==1.9.0
 mccabe==0.7.0
+mypy==1.1.1
 mypy-extensions==1.0.0
 nodeenv==1.7.0
 packaging==23.0
 pathspec==0.11.0
 platformdirs==3.0.0
 pre-commit==3.1.1
-pylint==2.16.1
 PyYAML==6.0
 tomlkit==0.11.6
+typing_extensions==4.5.0
 virtualenv==20.20.0
 wrapt==1.14.1
