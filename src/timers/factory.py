@@ -12,13 +12,19 @@ class TimerFactory:
     }
 
     @staticmethod
-    def create_timer(preset: Optional[str] = None, working_time: Optional[int] = None, resting_time: Optional[int] = None) -> Timer:
+    def create_timer(
+        preset: Optional[str] = None,
+        working_time: Optional[int] = None,
+        resting_time: Optional[int] = None,
+    ) -> Timer:
         """Create a Timer instance based on a preset or custom times."""
         if preset:
             if preset not in TimerFactory.PRESETS:
                 raise ValueError(f"Invalid preset: {preset}")
             config = TimerFactory.PRESETS[preset]
-            return Timer(working_time=config["working_time"], resting_time=config["resting_time"])
+            return Timer(
+                working_time=config["working_time"], resting_time=config["resting_time"]
+            )
         elif working_time is not None:
             return Timer(working_time=working_time, resting_time=resting_time)
         else:

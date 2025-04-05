@@ -13,7 +13,9 @@ def cli():
 @click.option(
     "--preset",
     "-p",
-    type=click.Choice(["normal", "single", "half", "tripartite", "quarterly"], case_sensitive=False),
+    type=click.Choice(
+        ["normal", "single", "half", "tripartite", "quarterly"], case_sensitive=False
+    ),
     help="Choose a preset timer configuration.",
 )
 @click.option(
@@ -31,7 +33,9 @@ def cli():
 def start(preset: Optional[str], work_time: Optional[int], rest_time: Optional[int]):
     """Start a timer with a preset or custom times."""
     try:
-        timer = TimerFactory.create_timer(preset=preset, working_time=work_time, resting_time=rest_time)
+        timer = TimerFactory.create_timer(
+            preset=preset, working_time=work_time, resting_time=rest_time
+        )
         timer.start()
     except ValueError as e:
         print(f"Error: {e}")

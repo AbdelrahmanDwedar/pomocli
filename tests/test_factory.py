@@ -20,5 +20,7 @@ def test_create_timer_invalid_preset():
 
 
 def test_create_timer_missing_arguments():
-    with pytest.raises(ValueError, match="Either a preset or working_time must be provided."):
+    with pytest.raises(
+        ValueError, match="Either a preset or working_time must be provided."
+    ):
         TimerFactory.create_timer()
