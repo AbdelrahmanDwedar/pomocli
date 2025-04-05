@@ -5,6 +5,12 @@ on:
     branches: [ "develop", "main" ]
   pull_request:
     branches: [ "develop", "main" ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
 
 permissions:
   contents: read
