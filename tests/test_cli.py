@@ -25,7 +25,7 @@ def test_start_with_custom_times(mocker, runner):
 def test_start_with_invalid_preset(runner):
     result = runner.invoke(cli, ["start", "--preset", "invalid"])
     assert result.exit_code != 0
-    assert "Invalid preset" in result.output
+    assert "Invalid value for '--preset'" in result.output
 
 
 def test_start_with_missing_arguments(runner):

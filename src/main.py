@@ -1,4 +1,5 @@
 import click
+import sys
 from typing import Optional
 from timers.factory import TimerFactory
 
@@ -38,7 +39,8 @@ def start(preset: Optional[str], work_time: Optional[int], rest_time: Optional[i
         )
         timer.start()
     except ValueError as e:
-        print(f"Error: {e}")
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
