@@ -1,6 +1,8 @@
 from time import sleep
 from typing import Optional
 
+import click
+
 
 class Timer:
     def __init__(self, working_time: int, resting_time: Optional[int] = None):
@@ -10,17 +12,18 @@ class Timer:
 
     def start(self) -> None:
         """Start the timer with working and optional resting periods."""
-        self._start_working_timer()
+        self._run_phase("Work", self.working_time)
         if self.resting_time:
-            self._start_resting_timer()
+            self._run_phase("Rest", self.resting_time)
 
-    def _start_working_timer(self) -> None:
-        """Start the working timer."""
-        print(f"Working for {self.working_time} seconds...")
-        sleep(self.working_time)
+    def _run_phase(self, label: str, total_seconds: int) -> None:
+        """Render a one-second granularity countdown with visual feedback."""
+        if total_seconds <= 0:
+            return
 
-    def _start_resting_timer(self) -> None:
-        """Start the resting timer."""
-        print(f"Resting for {self.resting_time} seconds...")
-        if self.resting_time is not None:
-            sleep(self.resting_time)
+        click.echo(f"Starting {label.lower()} session for {total_seconds // 60} minutes.")
+        with click.progressbar(length=total_seconds, label=f"{label} progress") as bar:
+            for _ in range(total_seconds):
+                sleep(1)
+                bar.update(1)
+        click.echo(f"{label} session complete.")
