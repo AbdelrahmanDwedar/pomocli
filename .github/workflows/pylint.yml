@@ -21,4 +21,9 @@ jobs:
           pip install pytest pytest-mock pylint
       - name: Analysing the code with pylint
         run: |
-          pylint $(git ls-files '*.py')
+          python_files=$(find src test tests -name "*.py" -type f)
+          if [ -n "$python_files" ]; then
+            echo "$python_files" | xargs pylint --rcfile=pylintrc
+          else
+            echo "No Python files found to lint"
+          fi

@@ -1,0 +1,106 @@
+name: Build Executable
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pyinstaller
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --name pomocli --console --hidden-import=timers.factory --hidden-import=timers.timer --paths=src src/main.py
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pomocli-windows
+          path: dist/pomocli.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -e .
+          pip install pyinstaller
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --name pomocli --console --hidden-import=timers.factory --hidden-import=timers.timer --paths=src src/main.py
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pomocli-linux
+          path: dist/pomocli
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -e .
+          pip install pyinstaller
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --name pomocli --console --hidden-import=timers.factory --hidden-import=timers.timer --paths=src src/main.py
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pomocli-macos
+          path: dist/pomocli
+
+  create-release:
+    needs: [build-windows, build-linux, build-macos]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            Automated release from main branch
+            
+            **Executables:**
+            - Windows: `pomocli.exe`
+            - Linux: `pomocli`
+            - macOS: `pomocli`
+          files: |
+            artifacts/pomocli-windows/pomocli.exe
+            artifacts/pomocli-linux/pomocli
+            artifacts/pomocli-macos/pomocli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
