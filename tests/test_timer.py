@@ -1,3 +1,4 @@
+"""Tests for the Timer class."""
 import pytest
 from timers.timer import Timer
 

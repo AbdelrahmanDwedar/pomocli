@@ -30,7 +30,8 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         pip install pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Skip installing the full dev requirements file in CI to avoid pinned-tool conflicts.
+        # Only install package itself later (see Build step).
     - name: Build
       run: |
         pip install -e .

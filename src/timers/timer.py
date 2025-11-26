@@ -1,3 +1,4 @@
+"""Timer class for managing work and rest sessions."""
 from time import sleep
 from typing import Optional
 
@@ -22,8 +23,8 @@ class Timer:
             return
 
         click.echo(f"Starting {label.lower()} session for {total_seconds // 60} minutes.")
-        with click.progressbar(length=total_seconds, label=f"{label} progress") as bar:
+        with click.progressbar(length=total_seconds, label=f"{label} progress") as progress_bar:
             for _ in range(total_seconds):
                 sleep(1)
-                bar.update(1)
+                progress_bar.update(1)
         click.echo(f"{label} session complete.")

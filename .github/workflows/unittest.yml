@@ -25,12 +25,13 @@ jobs:
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
+        python-version: "3.11"
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python3 -m pip install --upgrade pip
+        pip install pytest pytest-mock
+        pip install -e .
+        # Skip installing the full dev requirements file in CI to avoid pinned-tool conflicts.
     - name: Test with pytest
       run: |
         python3 -m pytest

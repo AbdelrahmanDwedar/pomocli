@@ -1,3 +1,4 @@
+"""Main CLI entry point for PomoCLI."""
 import click
 import sys
 from typing import Optional
@@ -7,7 +8,6 @@ from timers.factory import TimerFactory
 @click.group()
 def cli():
     """PomoCLI: A CLI tool for managing work and rest timers."""
-    pass
 
 
 @cli.command()
