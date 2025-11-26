@@ -1,3 +1,4 @@
+"""Factory for creating Timer instances with presets or custom configurations."""
 from typing import Optional
 from .timer import Timer
 
@@ -25,7 +26,6 @@ class TimerFactory:
             return Timer(
                 working_time=config["working_time"], resting_time=config["resting_time"]
             )
-        elif working_time is not None:
+        if working_time is not None:
             return Timer(working_time=working_time, resting_time=resting_time)
-        else:
-            raise ValueError("Either a preset or working_time must be provided.")
+        raise ValueError("Either a preset or working_time must be provided.")

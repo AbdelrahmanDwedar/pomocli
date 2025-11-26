@@ -1,3 +1,4 @@
+"""Tests for the TimerFactory class."""
 import pytest
 from timers.factory import TimerFactory
 

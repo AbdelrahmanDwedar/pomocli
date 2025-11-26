@@ -1,3 +1,4 @@
+"""Tests for the CLI interface."""
 import pytest
 from click.testing import CliRunner
 from main import cli
