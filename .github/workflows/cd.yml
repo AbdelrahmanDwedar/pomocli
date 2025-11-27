@@ -117,9 +117,10 @@ jobs:
           cp artifacts/pomocli-linux/pomocli release-assets/pomocli-linux
           cp artifacts/pomocli-macos/pomocli release-assets/pomocli-macos
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.version.outputs.tag }}
           name: Release v${{ steps.version.outputs.base }} (build ${{ github.run_id }}.${{ steps.version.outputs.attempt }})
           body: |
             Automated release from main branch
@@ -128,9 +129,5 @@ jobs:
             - Windows: `pomocli.exe`
             - Linux: `pomocli`
             - macOS: `pomocli`
-          files: |
-            release-assets/pomocli-windows.exe
-            release-assets/pomocli-linux
-            release-assets/pomocli-macos
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: release-assets/*
+          artifactContentType: application/octet-stream
