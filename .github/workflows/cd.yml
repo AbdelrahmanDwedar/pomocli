@@ -2,7 +2,7 @@ name: Build Executable
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -81,26 +81,54 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      - name: Download all artifacts
+      - name: Determine release version
+        id: version
+        run: |
+          VERSION=$(sed -nE "s/^[[:space:]]*version=['\"]([^'\"]+)['\"].*/\1/p" setup.py)
+          if [ -z "$VERSION" ]; then
+            echo "Unable to find version in setup.py"
+            exit 1
+          fi
+          echo "base=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=v${VERSION}+build.${GITHUB_RUN_ID}" >> "$GITHUB_OUTPUT"
+      - name: Download Windows artifact
         uses: actions/download-artifact@v4
         with:
-          path: artifacts
+          name: pomocli-windows
+          path: artifacts/pomocli-windows
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pomocli-linux
+          path: artifacts/pomocli-linux
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pomocli-macos
+          path: artifacts/pomocli-macos
+      - name: List downloaded artifact files
+        run: ls -R artifacts
+      - name: Prepare release assets
+        run: |
+          mkdir -p release-assets
+          cp artifacts/pomocli-windows/pomocli.exe release-assets/pomocli-windows.exe
+          cp artifacts/pomocli-linux/pomocli release-assets/pomocli-linux
+          cp artifacts/pomocli-macos/pomocli release-assets/pomocli-macos
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ github.run_number }}
-          name: Release v${{ github.run_number }}
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: Release v${{ steps.version.outputs.base }} (build ${{ github.run_id }})
           body: |
             Automated release from main branch
-            
+
             **Executables:**
             - Windows: `pomocli.exe`
             - Linux: `pomocli`
             - macOS: `pomocli`
           files: |
-            artifacts/pomocli-windows/pomocli.exe
-            artifacts/pomocli-linux/pomocli
-            artifacts/pomocli-macos/pomocli
+            release-assets/pomocli-windows.exe
+            release-assets/pomocli-linux
+            release-assets/pomocli-macos
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
