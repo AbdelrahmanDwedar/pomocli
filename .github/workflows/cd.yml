@@ -26,7 +26,7 @@ jobs:
         run: |
           pyinstaller --onefile --name pomocli --console --hidden-import=timers.factory --hidden-import=timers.timer --paths=src src/main.py
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pomocli-windows
           path: dist/pomocli.exe
@@ -48,7 +48,7 @@ jobs:
         run: |
           pyinstaller --onefile --name pomocli --console --hidden-import=timers.factory --hidden-import=timers.timer --paths=src src/main.py
       - name: Upload Linux artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pomocli-linux
           path: dist/pomocli
@@ -70,7 +70,7 @@ jobs:
         run: |
           pyinstaller --onefile --name pomocli --console --hidden-import=timers.factory --hidden-import=timers.timer --paths=src src/main.py
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pomocli-macos
           path: dist/pomocli
@@ -82,7 +82,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
       - name: Create Release
