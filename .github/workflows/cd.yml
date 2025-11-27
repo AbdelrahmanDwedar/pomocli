@@ -89,8 +89,10 @@ jobs:
             echo "Unable to find version in setup.py"
             exit 1
           fi
+          ATTEMPT=${GITHUB_RUN_ATTEMPT:-1}
           echo "base=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "tag=v${VERSION}+build.${GITHUB_RUN_ID}" >> "$GITHUB_OUTPUT"
+          echo "attempt=${ATTEMPT}" >> "$GITHUB_OUTPUT"
+          echo "tag=v${VERSION}+build.${GITHUB_RUN_ID}.${ATTEMPT}" >> "$GITHUB_OUTPUT"
       - name: Download Windows artifact
         uses: actions/download-artifact@v4
         with:
@@ -118,7 +120,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.version.outputs.tag }}
-          name: Release v${{ steps.version.outputs.base }} (build ${{ github.run_id }})
+          name: Release v${{ steps.version.outputs.base }} (build ${{ github.run_id }}.${{ steps.version.outputs.attempt }})
           body: |
             Automated release from main branch
 
